@@ -7,39 +7,39 @@ using namespace cv;
 
 int main()
 {
-    // srcImage Îªï¿½ï¿½ï¿½ï¿½Í¼ï¿½ï¿½ dstImage Îªï¿½ï¿½ï¿½Í¼ï¿½ï¿½
+    // srcImage ÎªÊäÈëÍ¼Ïñ£¬ dstImage ÎªÊä³öÍ¼Ïñ
     Mat srcImage, dstImage;
-    //GARY Îªï¿½Ò¶ï¿½Í¼ï¿½ï¿½
+    //GARY Îª»Ò¶ÈÍ¼Ïñ
     Mat temp1, temp2, GARY;
-    srcImage = imread("../srcimg/1.jpg");  
-    //ï¿½Ò¶È±ä»»
+    srcImage = imread("./srcimg/1.jpg");  
+    //»Ò¶È±ä»»
     BGR2GARY(srcImage, GARY, 1);
     imshow("GARY", GARY);
-    // tmpHist1 Îªï¿½Ò¶Èµï¿½Ö±ï¿½ï¿½Í¼ 
+    // tmpHist1 Îª»Ò¶ÈµÄÖ±·½Í¼ 
     Mat tmpHist1 = drawHist(GARY);
-    imshow("ï¿½Ò¶ï¿½Í¼ï¿½ï¿½Ö±ï¿½ï¿½Í¼", tmpHist1);
-    //temp1 Îªï¿½Ò¶ï¿½Í¼ï¿½ï¿½ï¿½ï¿½â»¯ï¿½ï¿½ï¿½ï¿½Ö®ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
+    imshow("»Ò¶ÈÍ¼ÏñÖ±·½Í¼", tmpHist1);
+    //temp1 Îª»Ò¶ÈÍ¼Ïñ¾ùºâ»¯´¦ÀíÖ®ºóµÄÍ¼Ïñ
     equalHist(GARY,temp1);
     imshow("temp1", temp1);
     Mat tmpHist2 = drawHist(temp1);
-    imshow("ï¿½ï¿½ï¿½â»¯Ö®ï¿½ï¿½Ò¶ï¿½Í¼ï¿½ï¿½Ö±ï¿½ï¿½Í¼", tmpHist2);
+    imshow("¾ùºâ»¯Ö®ºó»Ò¶ÈÍ¼ÏñÖ±·½Í¼", tmpHist2);
     enhanContrast(temp1, temp1);
-    imshow("Í¼ï¿½ï¿½ï¿½ï¿½Ç¿ï¿½Ô±È¶ï¿½", temp1);
+    imshow("Í¼ÏñÔöÇ¿¶Ô±È¶È", temp1);
     medianFilter(temp1, temp1);
-    imshow("Í¼ï¿½ï¿½ï¿½ï¿½Öµï¿½Ë²ï¿½", temp1);
+    imshow("Í¼ÏñÖÐÖµÂË²¨", temp1);
     binarization(temp1, temp1, 35);
-    imshow("ï¿½ï¿½Öµï¿½ï¿½", temp1);
-    // temp2  Îªï¿½ï¿½Ôµï¿½ï¿½ï¿½ï¿½Ö®ï¿½ó£¬·ï¿½ï¿½ï¿½Ñ°ï¿½ï¿½Î»ï¿½ï¿½
+    imshow("¶þÖµ»¯", temp1);
+    // temp2  Îª±ßÔµ´¦ÀíÖ®ºó£¬·½±ãÑ°ÕÒÎ»ÖÃ
     Sobel(temp1, temp2);
     imshow("Sobel", temp2);
-    // rÎªï¿½ï¿½ï¿½ê£¬ï¿½É¸ï¿½ï¿½ï¿½roughPosX ï¿½Ä·ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¶ï¿½
+    // rÎª×ø±ê£¬¿É¸ù¾ÝroughPosX µÄ·µ»ØÀ´ÅÐ¶Ï
     int r[2] = { 0 };
     roughPosX(temp2, 25, r);
     line(srcImage, Point(0, r[0] - 2), Point(640, r[0] - 2), Scalar(0, 255, 255), 1, CV_AA);
     line(srcImage, Point(0, r[1] + 2), Point(640, r[1] + 2), Scalar(0, 255, 255), 1, CV_AA);
     Rect rect(0, r[0] - 2, temp1.cols, r[1] - r[0] + 4);
 
-    //cut Îªï¿½Ð¸ï¿½ï¿½ï¿½Í¼ï¿½ï¿½
+    //cut ÎªÇÐ¸îºóµÄÍ¼Ïñ
     Mat cut = temp1(rect);
     Mat cutclone = cut.clone();
     imshow("cut", cut);
@@ -56,29 +56,29 @@ int main()
     line(srcImage, Point(axis[2], r[0] - 2), Point(axis[2], r[1] + 2), Scalar(0, 0, 255), 1, CV_AA);
     line(srcImage, Point(axis[3], r[0] - 2), Point(axis[3], r[1] + 2), Scalar(0, 0, 255), 1, CV_AA);
     Rect rect1(axis[0], 0, axis[1] - axis[0], cut.rows);
-    //cut1 Îªï¿½ï¿½ï¿½Åµï¿½Ò»ï¿½ï¿½
+    //cut1 Îª¿¨ºÅµÚÒ»¶Î
     Mat cut1 = cutclone(rect1);
     Rect rect2(axis[2], 0, axis[3] - axis[2], cut.rows);
-    //cut2 Îªï¿½ï¿½ï¿½ÅµÚ¶ï¿½ï¿½ï¿½
+    //cut2 Îª¿¨ºÅµÚ¶þ¶Î
     Mat cut2 = cutclone(rect2);
     imshow("cut1", cut1);
     imshow("cut2", cut2);
     imshow("srcImage", srcImage);
 
-    vector<int> Char;  //ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
-    vector<int> start; //ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½
+    vector<int> Char;  //´æ´¢³õ²½·Ö¸î³öÀ´µÄ×Ö·ûµÄ¿í¶È
+    vector<int> start; //´æ´¢³õ²½·Ö¸î³öÀ´µÄ×Ö·ûµÄÆðÊ¼Î»ÖÃ
 
     int num1 = 0;
     splitChar(cut1, num1, Char, start,7, 5.0, 6);
     cout << num1 << endl;
 
     int num2 = 0;
-    vector<int> Char2;  //ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½
-    vector<int> start2; //ï¿½æ´¢ï¿½ï¿½ï¿½ï¿½ï¿½Ö¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ö·ï¿½ï¿½ï¿½ï¿½ï¿½Ê¼Î»ï¿½ï¿½
+    vector<int> Char2;  //´æ´¢³õ²½·Ö¸î³öÀ´µÄ×Ö·ûµÄ¿í¶È
+    vector<int> start2; //´æ´¢³õ²½·Ö¸î³öÀ´µÄ×Ö·ûµÄÆðÊ¼Î»ÖÃ
     splitChar(cut2, num2, Char2, start2, 3, 5.0, 13);
     cout << num2 << endl;
     
-    //ï¿½ï¿½ï¿½Åµï¿½Ò»ï¿½ï¿½ï¿½ï¿½ï¿½Ð¸ï¿½ï¿½Í¼ï¿½ï¿½
+    //¿¨ºÅµÚÒ»²¿·ÖÇÐ¸îºóÍ¼Ïñ
     Mat tmp[15];
     for (int i = 0; i < num1; i++) {
         Rect rect(start[i], 0, Char[i], cut1.rows);
@@ -86,7 +86,7 @@ int main()
         string str = "cut1-" + to_string(i);
         imshow(str, tmp[i]);
     }
-    //ï¿½ï¿½ï¿½ÅµÚ¶ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ð¸ï¿½ï¿½Í¼ï¿½ï¿½
+    //¿¨ºÅµÚ¶þ²¿·ÖÇÐ¸îºóÍ¼Ïñ
     Mat tmp2[15];
     for (int i = 0; i < num2; i++) {
         Rect rect(start2[i], 0, Char2[i], cut2.rows);
@@ -95,7 +95,7 @@ int main()
         imshow(str, tmp2[i]);
     }
 
-    //ï¿½ï¿½È¡Ä£ï¿½ï¿½Í¼ï¿½ï¿½
+    //¶ÁÈ¡Ä£°åÍ¼Ïñ
     vector<Mat> train;
     for (int i = 0; i < 10; i++) {
         string str = "./train/Sam" + to_string(i) + ".jpg";
