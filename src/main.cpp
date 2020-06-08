@@ -45,8 +45,8 @@ int main()
     imshow("cut", cut);
     Erode(cut, cut, 3, 3);
     imshow("cut-Erode", cut);
-    Dilate(cut, cut, 15, 21);
-    Dilate(cut, cut, 7, 7);
+    //œ»≈Ú’Õ£¨∫Û∏Ø ¥
+    Dilate(cut, cut, 13, 17);
     Erode(cut, cut, 5, 5);
     imshow("cut-Dilate", cut);
     int axis[4];

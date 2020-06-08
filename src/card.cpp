@@ -400,6 +400,7 @@ void Dilate(Mat src, Mat& dst, int em, int en) {
 	// 为防止越界
 	for (int i = cem; i < row - cem - 1; i++) {
 		for (int j = cen; j < col - cen - 1; j++) {
+			breakflag = 0;
 			// i -cem， j - cen 为结构第一个元素
 			for (int m = 0; m < em; m++) {
 				for (int n = 0; n < en; n++) {
